@@ -1,2 +1,4 @@
-package PACKAGE_NAME;public class TableGUI {
+import javax.swing.*;
+
+public class TableGUI extends JFrame {
 }
