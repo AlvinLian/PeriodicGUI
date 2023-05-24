@@ -2,9 +2,9 @@ public class Element {
     private String elementName;
     private int atomicNum;
     private double atomicMass;
-    private double atomicRadius;
+    private int atomicRadius;
 
-    public Element (String elementName, int atomicNum, double atomicMass, double atomicRadius) {
+    public Element (String elementName, int atomicNum, double atomicMass, int atomicRadius) {
         this.elementName = elementName;
         this.atomicNum = atomicNum;
         this.atomicMass = atomicMass;
@@ -23,7 +23,7 @@ public class Element {
         return atomicMass;
     }
 
-    public double atomicRadius() {
+    public double getAtomicRadius() {
         return atomicRadius;
     }
 
