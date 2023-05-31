@@ -7,8 +7,9 @@ import javax.swing.JOptionPane;
 public class PeriodicGUI extends JFrame implements ActionListener {
     JFrame mainFrame;
     JButton[] elementButtons = new JButton[118];
-    JPanel panel;
-    Font myFont = new Font(Font.SERIF, Font.PLAIN,  15);
+    JPanel tablePanel;
+    JPanel keyPanel;
+    Font myFont = new Font(Font.SERIF, Font.PLAIN,  20);
 
     PeriodicTable p1 = new PeriodicTable();
     public PeriodicGUI() {
@@ -142,20 +143,20 @@ public class PeriodicGUI extends JFrame implements ActionListener {
             elementButtons[i].setFocusable(false);
         }
 
-        panel = new JPanel();
-        panel.setBounds(50, 20, 1200, 600);
-        panel.setLayout(new GridLayout(9, 18, 0, 0));
+        tablePanel = new JPanel();
+        tablePanel.setBounds(50, 20, 1200, 600);
+        tablePanel.setLayout(new GridLayout(9, 18, 0, 0));
         //panel.setBackground(Color.GRAY);
 
         int elementNum = 0;
         for(int i = 1; i <= 162; i++) {
             if(i == 93) {
-                panel.add(new JLabel("La to Lu"));
+                tablePanel.add(new JLabel("La to Lu"));
             } else if(i == 111) {
-                panel.add(new JLabel("Ac to Lr"));
+                tablePanel.add(new JLabel("Ac to Lr"));
             }else if((i >= 2 && i <= 17) || (i >= 21 && i <= 30) || (i >= 39 & i <= 48) || (i == 93) || (i ==111)
             || (i >= 127 && i <= 129) || (i >= 145 && i <= 147)) {
-                panel.add(new JLabel(""));
+                tablePanel.add(new JLabel(""));
             } else {
                 if(i ==94) {
                     elementNum = 71;
@@ -166,19 +167,29 @@ public class PeriodicGUI extends JFrame implements ActionListener {
                 } else if(i == 148) {
                     elementNum = 88;
                 }
-                panel.add(elementButtons[elementNum]);
+                tablePanel.add(elementButtons[elementNum]);
                 elementNum++;
             }
 
         }
 
-        mainFrame.add(panel);
+        for(int i = 0; i < 118; i++) {
+            if (i == 0 || (i >= 5 && i <= 8) || (i >= 14 && i <= 16) || (i >= 33 & i <= 34) || i== 52) {
+                elementButtons[i].setBackground(Color.CYAN); // nonmetals
+            } else if (i == 2 || i == 10 || i == 18 || i == 36 || i== 54 || i == 86 ) {
+                elementButtons[i].setBackground(new Color(0, 204, 0)); // alkali
+            } else if(i == 3 || i == 11 || i == 19 || i == 37 || i == 55 || i ==87) {
+                elementButtons[i].setBackground(new Color(239, 16, 16)); // alkaline earth
+            } else if((i >= 20 && i <= 29) || (i >= 38 && i <= 47) || (i >=71 && i <= 79) || (i >= 103 && i <= 107)) {
+                elementButtons[i].setBackground(new Color(126, 123, 178)); // transition metals
+            } else if(i == 4 || i == 13 || i == 31 || i == 32 || i == 50 || i == 51) {
+                elementButtons[i].setBackground(new Color(250, 223, 136)); // metalloids
+            } else if()
+        }
+
+        mainFrame.add(tablePanel);
         mainFrame.setVisible(true);
 
-    }
-
-    public static void main(String[] args) {
-        PeriodicGUI newGUI = new PeriodicGUI();
     }
 
     @Override
@@ -188,5 +199,9 @@ public class PeriodicGUI extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(null, p1.displayMessage(i), "Element Info", JOptionPane.INFORMATION_MESSAGE);
             }
         }
+    }
+
+    public static void main(String[] args) {
+        PeriodicGUI newGUI = new PeriodicGUI();
     }
 }
