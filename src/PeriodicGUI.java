@@ -9,7 +9,7 @@ public class PeriodicGUI extends JFrame implements ActionListener {
     JButton[] elementButtons = new JButton[118];
     JPanel tablePanel;
     JPanel keyPanel;
-    Font myFont = new Font(Font.SERIF, Font.PLAIN,  20);
+    Font myFont = new Font(Font.SERIF, Font.PLAIN,  18);
 
     PeriodicTable p1 = new PeriodicTable();
     public PeriodicGUI() {
@@ -143,10 +143,18 @@ public class PeriodicGUI extends JFrame implements ActionListener {
             elementButtons[i].setFocusable(false);
         }
 
+
+        // panels
         tablePanel = new JPanel();
-        tablePanel.setBounds(50, 20, 1200, 600);
+        tablePanel.setBounds(50, 100, 1100, 500);
         tablePanel.setLayout(new GridLayout(9, 18, 0, 0));
-        //panel.setBackground(Color.GRAY);
+        tablePanel.setBackground(Color.gray);
+
+        keyPanel = new JPanel();
+        keyPanel.setBounds(50, 1300, 300, 200);
+        keyPanel.setBackground(Color.green);
+
+
 
         int elementNum = 0;
         for(int i = 1; i <= 162; i++) {
@@ -184,10 +192,21 @@ public class PeriodicGUI extends JFrame implements ActionListener {
                 elementButtons[i].setBackground(new Color(126, 123, 178)); // transition metals
             } else if(i == 4 || i == 13 || i == 31 || i == 32 || i == 50 || i == 51) {
                 elementButtons[i].setBackground(new Color(250, 223, 136)); // metalloids
-            } else if()
+            } else if(i == 12 || i == 30 || (i >= 48 && i <= 49) || (i >= 80 && i <= 84)) {
+                elementButtons[i].setBackground(new Color(224, 117, 8)); // post transition metals
+            } else if(i == 1 || i == 9 || i == 17 || i == 35 || i == 53 || i == 85) {
+                elementButtons[i].setBackground(new Color(245, 127, 221, 207)); //noble gases
+            } else if(i >= 108 && i <= 117) {
+                elementButtons[i].setBackground(new Color(194, 188, 188));
+            } else if(i >= 57 &&  i <=70) {
+                elementButtons[i].setBackground(new Color(42, 54, 225));
+            } else {
+                elementButtons[i].setBackground(new Color(227, 145, 118));
+            }
         }
 
         mainFrame.add(tablePanel);
+        mainFrame.add(keyPanel);
         mainFrame.setVisible(true);
 
     }
