@@ -9,6 +9,8 @@ public class PeriodicGUI extends JFrame implements ActionListener {
     JButton[] elementButtons = new JButton[118];
     JPanel tablePanel;
     JPanel keyPanel;
+    JPanel weightPanel;
+    JLayeredPane titlePane;
     Font myFont = new Font(Font.SERIF, Font.PLAIN,  18);
 
     PeriodicTable p1 = new PeriodicTable();
@@ -146,41 +148,45 @@ public class PeriodicGUI extends JFrame implements ActionListener {
 
         // panels
         tablePanel = new JPanel();
-        tablePanel.setBounds(50, 100, 1100, 500);
-        tablePanel.setLayout(new GridLayout(9, 18, 0, 0));
-        tablePanel.setBackground(Color.gray);
+        tablePanel.setBounds(50, 100, 1200, 600);
+        tablePanel.setLayout(new GridLayout(10, 18, 0, 0));
+        //tablePanel.setBackground(Color.gray);
 
         keyPanel = new JPanel();
-        keyPanel.setBounds(50, 1300, 300, 200);
-        keyPanel.setBackground(Color.green);
+        keyPanel.setBounds(50, 725, 1200, 200);
+        keyPanel.setBackground(Color.WHITE);
 
+        titlePane = new JLayeredPane();
+        titlePane.setBounds(100, 50, 800, 300);
+        titlePane.setBackground(Color.GREEN);
 
+        weightPanel = new JPanel();
 
+        // periodic format
         int elementNum = 0;
-        for(int i = 1; i <= 162; i++) {
+        for(int i = 1; i <= 180; i++) {
             if(i == 93) {
                 tablePanel.add(new JLabel("La to Lu"));
-            } else if(i == 111) {
+            } else if (i == 111) {
                 tablePanel.add(new JLabel("Ac to Lr"));
-            }else if((i >= 2 && i <= 17) || (i >= 21 && i <= 30) || (i >= 39 & i <= 48) || (i == 93) || (i ==111)
-            || (i >= 127 && i <= 129) || (i >= 145 && i <= 147)) {
+            } else if((i >= 2 && i <= 17) || (i >= 21 && i <= 30) || (i >= 39 && i <= 48) || (i >= 127 && i <= 144) || (i >= 145 & i <= 147) || (i >= 163 && i <= 165)) {
                 tablePanel.add(new JLabel(""));
             } else {
                 if(i ==94) {
                     elementNum = 71;
                 } else if (i == 112) {
                     elementNum = 103;
-                } else if (i == 130) {
+                } else if (i == 148) {
                     elementNum = 56;
-                } else if(i == 148) {
+                } else if(i == 166) {
                     elementNum = 88;
                 }
                 tablePanel.add(elementButtons[elementNum]);
                 elementNum++;
             }
-
         }
 
+        // assigns color to each button accordingly
         for(int i = 0; i < 118; i++) {
             if (i == 0 || (i >= 5 && i <= 8) || (i >= 14 && i <= 16) || (i >= 33 & i <= 34) || i== 52) {
                 elementButtons[i].setBackground(Color.CYAN); // nonmetals
@@ -197,11 +203,11 @@ public class PeriodicGUI extends JFrame implements ActionListener {
             } else if(i == 1 || i == 9 || i == 17 || i == 35 || i == 53 || i == 85) {
                 elementButtons[i].setBackground(new Color(245, 127, 221, 207)); //noble gases
             } else if(i >= 108 && i <= 117) {
-                elementButtons[i].setBackground(new Color(194, 188, 188));
-            } else if(i >= 57 &&  i <=70) {
-                elementButtons[i].setBackground(new Color(42, 54, 225));
+                elementButtons[i].setBackground(new Color(194, 188, 188)); //unknown elements
+            } else if(i >= 56 &&  i <=70) {
+                elementButtons[i].setBackground(new Color(42, 54, 225)); // Lanthanides
             } else {
-                elementButtons[i].setBackground(new Color(227, 145, 118));
+                elementButtons[i].setBackground(new Color(227, 145, 118)); // Actinides
             }
         }
 
