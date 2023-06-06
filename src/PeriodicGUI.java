@@ -2,15 +2,20 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.JOptionPane;
 
-public class PeriodicGUI extends JFrame implements ActionListener {
+import static javax.swing.SwingConstants.LEFT;
+
+public class PeriodicGUI extends JFrame implements ActionListener, KeyListener {
     JFrame mainFrame;
     JButton[] elementButtons = new JButton[118];
     JPanel tablePanel;
     JPanel keyPanel;
     JPanel weightPanel;
     JLayeredPane titlePane;
+    JTextField formulaReceiver;
     Font myFont = new Font(Font.SERIF, Font.PLAIN,  18);
 
     PeriodicTable p1 = new PeriodicTable();
@@ -154,6 +159,7 @@ public class PeriodicGUI extends JFrame implements ActionListener {
 
         keyPanel = new JPanel();
         keyPanel.setBounds(50, 725, 1200, 200);
+        keyPanel.setLayout(new GridLayout(3, 4, 10, 10));
         keyPanel.setBackground(Color.WHITE);
 
         titlePane = new JLayeredPane();
@@ -161,6 +167,8 @@ public class PeriodicGUI extends JFrame implements ActionListener {
         titlePane.setBackground(Color.GREEN);
 
         weightPanel = new JPanel();
+        weightPanel.setBounds(1300, 100, 200, 600);
+        weightPanel.setBackground(Color.WHITE);
 
         // periodic format
         int elementNum = 0;
@@ -211,8 +219,33 @@ public class PeriodicGUI extends JFrame implements ActionListener {
             }
         }
 
+        ImageIcon alkaliKey = new ImageIcon("greenKey.png");
+        keyPanel.add(new JLabel("Alkali metals", alkaliKey, 0));
+        keyPanel.add(new JLabel("Alkaline earth metals"));
+        keyPanel.add(new JLabel("Transition metals"));
+        keyPanel.add(new JLabel("Post-transition metals"));
+        keyPanel.add(new JLabel("Metalloids"));
+        keyPanel.add(new JLabel("Reactive nonmetals"));
+        keyPanel.add(new JLabel("Noble gases"));
+        keyPanel.add(new JLabel("Lanthanides"));
+        keyPanel.add(new JLabel("Actinides"));
+        keyPanel.add(new JLabel("Unknown properties"));
+
+        JLabel calc = new JLabel("Molar Mass Calculator");
+        JLabel metalLabel = new JLabel("Metal: ");
+
+        formulaReceiver = new JTextField("Enter ionic formula here");
+
+
+        weightPanel.add(calc);
+        weightPanel.add(formulaReceiver);
+
+
+
+
         mainFrame.add(tablePanel);
         mainFrame.add(keyPanel);
+        mainFrame.add(weightPanel);
         mainFrame.setVisible(true);
 
     }
@@ -223,6 +256,20 @@ public class PeriodicGUI extends JFrame implements ActionListener {
             if(e.getSource() == elementButtons[i]) {
                 JOptionPane.showMessageDialog(null, p1.displayMessage(i), "Element Info", JOptionPane.INFORMATION_MESSAGE);
             }
+        }
+    }
+
+    public void keyPressed(KeyEvent e) {
+
+    }
+
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    public void keyReleased(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+
         }
     }
 
