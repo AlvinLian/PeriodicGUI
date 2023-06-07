@@ -6,24 +6,27 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JOptionPane;
 
-import static javax.swing.SwingConstants.LEFT;
-
 public class PeriodicGUI extends JFrame implements ActionListener, KeyListener {
     JFrame mainFrame;
     JButton[] elementButtons = new JButton[118];
+    ImageIcon[] colorIcons = new ImageIcon[10];
+    String[] groupNames = new String[10];
     JPanel tablePanel;
     JPanel keyPanel;
     JPanel weightPanel;
     JLayeredPane titlePane;
     JTextField formulaReceiver;
-    Font myFont = new Font(Font.SERIF, Font.PLAIN,  18);
+    Font myFont = new Font(Font.SERIF, Font.PLAIN,  14);
 
     PeriodicTable p1 = new PeriodicTable();
     public PeriodicGUI() {
         mainFrame = new JFrame("Periodic Table of Elements");
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainFrame.setSize(1000, 500);
+        mainFrame.setSize(1366, 768); // 1000, 500
         mainFrame.setLayout(null);
+
+
+
 
         elementButtons[0] = new JButton("H");
         elementButtons[1] = new JButton("He");
@@ -153,13 +156,13 @@ public class PeriodicGUI extends JFrame implements ActionListener, KeyListener {
 
         // panels
         tablePanel = new JPanel();
-        tablePanel.setBounds(50, 100, 1200, 600);
+        tablePanel.setBounds(50, 50, 1000, 500); // before: 1200, 600
         tablePanel.setLayout(new GridLayout(10, 18, 0, 0));
         //tablePanel.setBackground(Color.gray);
 
         keyPanel = new JPanel();
-        keyPanel.setBounds(50, 725, 1200, 200);
-        keyPanel.setLayout(new GridLayout(3, 4, 10, 10));
+        keyPanel.setBounds(50, 575, 1000, 100);
+        keyPanel.setLayout(new GridLayout(3, 4, 0, 0));
         keyPanel.setBackground(Color.WHITE);
 
         titlePane = new JLayeredPane();
@@ -167,7 +170,7 @@ public class PeriodicGUI extends JFrame implements ActionListener, KeyListener {
         titlePane.setBackground(Color.GREEN);
 
         weightPanel = new JPanel();
-        weightPanel.setBounds(1300, 100, 200, 600);
+        weightPanel.setBounds(1075, 75, 200, 600);
         weightPanel.setBackground(Color.WHITE);
 
         // periodic format
@@ -209,7 +212,7 @@ public class PeriodicGUI extends JFrame implements ActionListener, KeyListener {
             } else if(i == 12 || i == 30 || (i >= 48 && i <= 49) || (i >= 80 && i <= 84)) {
                 elementButtons[i].setBackground(new Color(224, 117, 8)); // post transition metals
             } else if(i == 1 || i == 9 || i == 17 || i == 35 || i == 53 || i == 85) {
-                elementButtons[i].setBackground(new Color(245, 127, 221, 207)); //noble gases
+                elementButtons[i].setBackground(new Color(230, 243, 8, 207)); //noble gases
             } else if(i >= 108 && i <= 117) {
                 elementButtons[i].setBackground(new Color(194, 188, 188)); //unknown elements
             } else if(i >= 56 &&  i <=70) {
@@ -219,17 +222,34 @@ public class PeriodicGUI extends JFrame implements ActionListener, KeyListener {
             }
         }
 
-        ImageIcon alkaliKey = new ImageIcon("greenKey.png");
-        keyPanel.add(new JLabel("Alkali metals", alkaliKey, 0));
-        keyPanel.add(new JLabel("Alkaline earth metals"));
-        keyPanel.add(new JLabel("Transition metals"));
-        keyPanel.add(new JLabel("Post-transition metals"));
-        keyPanel.add(new JLabel("Metalloids"));
-        keyPanel.add(new JLabel("Reactive nonmetals"));
-        keyPanel.add(new JLabel("Noble gases"));
-        keyPanel.add(new JLabel("Lanthanides"));
-        keyPanel.add(new JLabel("Actinides"));
-        keyPanel.add(new JLabel("Unknown properties"));
+        colorIcons[0] = new ImageIcon("greenKey.png");
+        colorIcons[1] = new ImageIcon("redKey.png");
+        colorIcons[2] = new ImageIcon("greenKey.png");
+        colorIcons[3] = new ImageIcon("greenKey.png");
+        colorIcons[4] = new ImageIcon("greenKey.png");
+        colorIcons[5] = new ImageIcon("greenKey.png");
+        colorIcons[6] = new ImageIcon("greenKey.png");
+        colorIcons[7] = new ImageIcon("greenKey.png");
+        colorIcons[8] = new ImageIcon("greenKey.png");
+        colorIcons[9] = new ImageIcon("greenKey.png");
+
+        groupNames[0] = "Alkali metals";
+        groupNames[1] = "Alkaline earth metals";
+        groupNames[2] = "Transition metals";
+        groupNames[3] = "Post-transition metals";
+        groupNames[4] = "Metalloids";
+        groupNames[5] = "Reactive nonmetals";
+        groupNames[6] = "Noble gases";
+        groupNames[7] = "Lanthanides";
+        groupNames[8] = "Actinides";
+        groupNames[9] = "Unknown Properties";
+
+        for(int i = 0; i < 10; i++) {
+            JLabel newLabel = new JLabel(groupNames[i]);
+            newLabel.setIcon(colorIcons[i]);
+            newLabel.setHorizontalTextPosition(JLabel.RIGHT);
+            keyPanel.add(newLabel);
+        }
 
         JLabel calc = new JLabel("Molar Mass Calculator");
         JLabel metalLabel = new JLabel("Metal: ");
