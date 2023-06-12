@@ -4,6 +4,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import java.util.Locale;
 import javax.swing.JOptionPane;
 
 public class PeriodicGUI extends JFrame implements ActionListener, KeyListener {
@@ -14,8 +16,18 @@ public class PeriodicGUI extends JFrame implements ActionListener, KeyListener {
     JPanel tablePanel;
     JPanel keyPanel;
     JPanel weightPanel;
-    JLayeredPane titlePane;
-    JTextField formulaReceiver;
+    JTextField element1TF;
+    JTextField element1Moles;
+    JTextField element2TF;
+    JTextField element2Moles;
+
+    JLabel element1Label;
+    JLabel e1MoleLabel;
+    JLabel element2Label;
+    JLabel e2moleLabel;
+    JTextField massTF;
+    JLabel calc;
+    JLabel enterPhrase;
     Font myFont = new Font(Font.SERIF, Font.PLAIN,  14);
 
     PeriodicTable p1 = new PeriodicTable();
@@ -24,9 +36,6 @@ public class PeriodicGUI extends JFrame implements ActionListener, KeyListener {
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setSize(1366, 768); // 1000, 500
         mainFrame.setLayout(null);
-
-
-
 
         elementButtons[0] = new JButton("H");
         elementButtons[1] = new JButton("He");
@@ -162,15 +171,12 @@ public class PeriodicGUI extends JFrame implements ActionListener, KeyListener {
 
         keyPanel = new JPanel();
         keyPanel.setBounds(50, 575, 1000, 100);
-        keyPanel.setLayout(new GridLayout(3, 4, 0, 0));
+        keyPanel.setLayout(new GridLayout(3, 4, 0, 3));
         keyPanel.setBackground(Color.WHITE);
 
-        titlePane = new JLayeredPane();
-        titlePane.setBounds(100, 50, 800, 300);
-        titlePane.setBackground(Color.GREEN);
-
         weightPanel = new JPanel();
-        weightPanel.setBounds(1075, 75, 200, 600);
+        weightPanel.setBounds(1075, 100, 200, 400);
+        //weightPanel.setLayout(new GridLayout(5, 1, 0, 0));
         weightPanel.setBackground(Color.WHITE);
 
         // periodic format
@@ -180,7 +186,8 @@ public class PeriodicGUI extends JFrame implements ActionListener, KeyListener {
                 tablePanel.add(new JLabel("La to Lu"));
             } else if (i == 111) {
                 tablePanel.add(new JLabel("Ac to Lr"));
-            } else if((i >= 2 && i <= 17) || (i >= 21 && i <= 30) || (i >= 39 && i <= 48) || (i >= 127 && i <= 144) || (i >= 145 & i <= 147) || (i >= 163 && i <= 165)) {
+            } else if((i >= 2 && i <= 17) || (i >= 21 && i <= 30) || (i >= 39 && i <= 48)
+                    || (i >= 127 && i <= 144) || (i >= 145 & i <= 147) || (i >= 163 && i <= 165)) {
                 tablePanel.add(new JLabel(""));
             } else {
                 if(i ==94) {
@@ -200,7 +207,7 @@ public class PeriodicGUI extends JFrame implements ActionListener, KeyListener {
         // assigns color to each button accordingly
         for(int i = 0; i < 118; i++) {
             if (i == 0 || (i >= 5 && i <= 8) || (i >= 14 && i <= 16) || (i >= 33 & i <= 34) || i== 52) {
-                elementButtons[i].setBackground(Color.CYAN); // nonmetals
+                elementButtons[i].setBackground(new Color(94, 252, 255)); // nonmetals
             } else if (i == 2 || i == 10 || i == 18 || i == 36 || i== 54 || i == 86 ) {
                 elementButtons[i].setBackground(new Color(0, 204, 0)); // alkali
             } else if(i == 3 || i == 11 || i == 19 || i == 37 || i == 55 || i ==87) {
@@ -212,7 +219,7 @@ public class PeriodicGUI extends JFrame implements ActionListener, KeyListener {
             } else if(i == 12 || i == 30 || (i >= 48 && i <= 49) || (i >= 80 && i <= 84)) {
                 elementButtons[i].setBackground(new Color(224, 117, 8)); // post transition metals
             } else if(i == 1 || i == 9 || i == 17 || i == 35 || i == 53 || i == 85) {
-                elementButtons[i].setBackground(new Color(230, 243, 8, 207)); //noble gases
+                elementButtons[i].setBackground(new Color(230, 243, 8)); //noble gases
             } else if(i >= 108 && i <= 117) {
                 elementButtons[i].setBackground(new Color(194, 188, 188)); //unknown elements
             } else if(i >= 56 &&  i <=70) {
@@ -224,14 +231,20 @@ public class PeriodicGUI extends JFrame implements ActionListener, KeyListener {
 
         colorIcons[0] = new ImageIcon("greenKey.png");
         colorIcons[1] = new ImageIcon("redKey.png");
-        colorIcons[2] = new ImageIcon("greenKey.png");
-        colorIcons[3] = new ImageIcon("greenKey.png");
-        colorIcons[4] = new ImageIcon("greenKey.png");
-        colorIcons[5] = new ImageIcon("greenKey.png");
-        colorIcons[6] = new ImageIcon("greenKey.png");
-        colorIcons[7] = new ImageIcon("greenKey.png");
-        colorIcons[8] = new ImageIcon("greenKey.png");
-        colorIcons[9] = new ImageIcon("greenKey.png");
+        colorIcons[2] = new ImageIcon("purpleKey.png");
+        colorIcons[3] = new ImageIcon("orangeKey.png");
+        colorIcons[4] = new ImageIcon("peachKey.png");
+        colorIcons[5] = new ImageIcon("cyanKey.png");
+        colorIcons[6] = new ImageIcon("yellowKey.png");
+        colorIcons[7] = new ImageIcon("blueKey.png");
+        colorIcons[8] = new ImageIcon("lightRedKey.png");
+        colorIcons[9] = new ImageIcon("greyKey.png");
+
+        for(int i = 0; i < 10; i++) {
+            Image image = colorIcons[i].getImage(); // transform it
+            Image newImg = image.getScaledInstance(30, 30,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+            colorIcons[i] = new ImageIcon(newImg);  // transform it back
+        }
 
         groupNames[0] = "Alkali metals";
         groupNames[1] = "Alkaline earth metals";
@@ -251,17 +264,56 @@ public class PeriodicGUI extends JFrame implements ActionListener, KeyListener {
             keyPanel.add(newLabel);
         }
 
-        JLabel calc = new JLabel("Molar Mass Calculator");
-        JLabel metalLabel = new JLabel("Metal: ");
+        calc = new JLabel("Molar Mass Calculator");
+        calc.setFont(new Font(Font.SERIF, Font.PLAIN,  20));
 
-        formulaReceiver = new JTextField("Enter ionic formula here");
+        // metal label and textfield
+        element1Label = new JLabel("Element 1 Symbol: ");
+        element1Label.setLocation(1150, 100);
+        element1TF = new JTextField("");
+        element1TF.setPreferredSize(new Dimension(50, 25));
 
+        // metal quantity label and textfield
+        e1MoleLabel = new JLabel("Moles of Element 1: ");
+        e1MoleLabel.setLocation(1150, 200);
+        element1Moles = new JTextField("");
+        element1Moles.setPreferredSize(new Dimension(50, 25));
+
+        // nonmetal label and textfield
+        element2Label = new JLabel("Element 2 symbol: ");
+        element2Label.setLocation(1150, 300);
+        element2TF = new JTextField("");
+        element2TF.setPreferredSize(new Dimension(50, 25));
+
+        //nonmetal quantity label and textfield
+        e2moleLabel = new JLabel("Moles of Element 2: ");
+        e2moleLabel.setLocation(1150, 400);
+        element2Moles= new JTextField("");
+        element2Moles.setPreferredSize(new Dimension(50, 25));
+
+        //Displays mass
+        massTF = new JTextField("");
+        massTF.setPreferredSize(new Dimension(180, 100));
+        massTF.setEditable(false);
+
+        enterPhrase = new JLabel("Press Enter Key");
 
         weightPanel.add(calc);
-        weightPanel.add(formulaReceiver);
+        weightPanel.add(element1Label);
+        weightPanel.add(element1TF);
+        weightPanel.add(e1MoleLabel);
+        weightPanel.add(element1Moles);
+        weightPanel.add(element2Label);
+        weightPanel.add(element2TF);
+        weightPanel.add(e2moleLabel);
+        weightPanel.add(element2Moles);
+        weightPanel.add(enterPhrase);
+        weightPanel.add(massTF);
 
-
-
+        element1TF.addKeyListener(this);
+        element1Moles.addKeyListener(this);
+        element2TF.addKeyListener(this);
+        element2Moles.addKeyListener(this);
 
         mainFrame.add(tablePanel);
         mainFrame.add(keyPanel);
@@ -289,7 +341,32 @@ public class PeriodicGUI extends JFrame implements ActionListener, KeyListener {
 
     public void keyReleased(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+            double molarMass = 0;
+            String metalName = element1TF.getText().toLowerCase();
+            ArrayList<Element> pTable = p1.getPeriodicTable();
+            for(int i = 0; i < 118; i++ ) {
+                Element currentElement = pTable.get(i);
+                int molesMetal = Integer.parseInt(element1Moles.getText());
+                if(metalName.equals(currentElement.getSymbol().toLowerCase())) {
+                    molarMass += currentElement.getAtomicMass() * molesMetal;
+                    break;
+                }
+            }
 
+            String nonmetalName = element2TF.getText().toLowerCase();
+            for(int i = 0; i < 118; i++ ) {
+                Element currentElement = pTable.get(i);
+                int molesNonmetal = Integer.parseInt(element2Moles.getText());
+                if(nonmetalName.equals(currentElement.getSymbol().toLowerCase())) {
+                    molarMass += currentElement.getAtomicMass() * molesNonmetal;
+                    break;
+                }
+            }
+
+            String str = String.format("%.2f", molarMass);
+
+            massTF.setText("" + str + " grams");
+            massTF.setFont(new Font(Font.SERIF, Font.PLAIN, 25));
         }
     }
 
